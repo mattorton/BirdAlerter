@@ -15,11 +15,13 @@ public class SightingsMonitorWrapper {
 	 * @param args
 	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) throws InterruptedException {
-		
+	public static void main(String[] args) throws InterruptedException {	
 		sightings = new LinkedBlockingQueue<BirdSighting>();
 		sightingAlerts = new LinkedBlockingQueue<BirdSightingAlert>();
 		sightingAlertProcessors = SightingAlertProcessorFactory.getInstance().getAlertProcessors();
+		
+		// First start the data importers
+		DataImportProvider.getInstance().startImporters();
 		
 		// Load the shared queue with some sample sightings
 		loadSightings();
