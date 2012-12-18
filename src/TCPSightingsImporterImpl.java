@@ -1,15 +1,16 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 
-
-public class TCPSightingsImporterImpl implements SightingsImporter{
+public class TcpSightingsImporterImpl implements SightingsImporter{
 
 	private ServerSocket listener;
 	private Socket server;
 	private int maxConnections;
+	private List<BirdSighting> birdSightings;
 	
-	public TCPSightingsImporterImpl(int port, int maxConnections) {
+	public TcpSightingsImporterImpl(int port, int maxConnections) {
 		try {
 			listener = new ServerSocket(port);
 		} catch (IOException e) {
@@ -20,14 +21,19 @@ public class TCPSightingsImporterImpl implements SightingsImporter{
 	}
 
 	@Override
-	public void run() {
+	public void run()
+	{
 		int i = 0;
-		while ((i++ < maxConnections) || (maxConnections == 0)) {
+		while ((i++ < maxConnections) || (maxConnections == 0))
+		{
 			tcpCommunicator tcpComms;
-			try {
+			try
+			{
 				System.out.println(String.format("Started %s", this.getClass()));
 				server = listener.accept();
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -56,4 +62,9 @@ public class TCPSightingsImporterImpl implements SightingsImporter{
 		
 	}
 
+	@Override
+	public void assignList(List<BirdSighting> birdSightings) {
+		// Obtain a reference to the shared queue (one instantiated per SightingsImporter)
+		this.birdSightings = birdSightings;
+	}
 }

@@ -1,5 +1,6 @@
-import java.io.DataInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 
@@ -12,11 +13,10 @@ public class tcpCommunicator implements Runnable{
 		this.serverSocket = server;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
 	      try {
-	          DataInputStream in = new DataInputStream (serverSocket.getInputStream());
+	    	  BufferedReader in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
 	          PrintStream out = new PrintStream(serverSocket.getOutputStream());
 
 			while((line = in.readLine()) != null && !line.equals(".")) {

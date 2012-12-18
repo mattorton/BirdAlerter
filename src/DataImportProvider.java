@@ -1,12 +1,25 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DataImportProvider {
 
-	private static SightingsImporter[] sightingsImporters = new SightingsImporter[]{new TCPSightingsImporterImpl(4444, 20)};
-	static DataImportProvider instance = new DataImportProvider();
+	private SightingsImporter[] sightingsImporters = new SightingsImporter[]{new TcpSightingsImporterImpl(4444, 20)};
 	private List<Thread> runThreads = new ArrayList<Thread>();
+	private Map<String, List<BirdSighting>> threadQueues = new HashMap<String, List<BirdSighting>>();
+	static DataImportProvider instance = new DataImportProvider();
 	
+	private DataImportProvider(){
+		// For each SightingsImporter instance create a List<BirdSighting> instance
+		// keyed on the concrete class name
+		for (SightingsImporter importer : sightingsImporters) {
+			threadQueues.put(importer.getClass().getName(), new ArrayList<BirdSighting>());
+			importer.assignList(threadQueues.get(importer.getClass().getName()));
+		}
+	}
+	
+	// Create a singleton instance
 	public static DataImportProvider getInstance(){
 		
 		if(instance == null){

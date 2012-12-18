@@ -1,10 +1,10 @@
-
-
+import java.util.List;
 
 public abstract class SightingAlertProcessorImpl extends Thread implements SightingAlertProcessor {
 
 	//private LinkedBlockingQueue<BirdSighting> sightings;
 	private volatile boolean terminateRequested;
+	private volatile List<BirdSighting> birdSightings;
 	
 	public SightingAlertProcessorImpl() {
 		//this.sightings = sightings;
@@ -29,5 +29,10 @@ public abstract class SightingAlertProcessorImpl extends Thread implements Sight
 		// To do, this will contain the logic to process the bird sighting
 		// in concrete overridden implementations	
 	private void processBirdSighting(BirdSighting sighting){
+	}
+	
+	@Override
+	public void assignList(List<BirdSighting> birdSightings){
+		this.birdSightings = birdSightings;
 	}
 }
