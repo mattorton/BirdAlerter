@@ -1,15 +1,16 @@
+package input;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 
-public class tcpCommunicator implements Runnable{
+public class TcpDataHandler implements Runnable{
 
 	private Socket serverSocket;
 	private String input, line;
 	
-	public tcpCommunicator(Socket server) {
+	public TcpDataHandler(Socket server) {
 		this.serverSocket = server;
 	}
 

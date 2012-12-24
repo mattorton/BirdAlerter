@@ -1,11 +1,14 @@
+package domainobjects;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
+import processing.ISightingVisitor;
+
 /*
  * 
  */
-public class BirdSightingImpl implements BirdSighting, Serializable {
+public class BirdSightingImpl implements IBirdSighting, Serializable {
 
 	/**
 	 * 
@@ -55,5 +58,10 @@ public class BirdSightingImpl implements BirdSighting, Serializable {
 	@Override
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public void accept(ISightingVisitor visitor) {
+		visitor.Visit(this);
 	}
 }

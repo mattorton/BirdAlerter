@@ -1,6 +1,8 @@
 import java.util.List;
 
-public abstract class SightingAlertProcessorImpl extends Thread implements SightingAlertProcessor {
+import processing.ISightingsProcessor;
+
+public abstract class SightingAlertProcessorImpl extends Thread implements ISightingsProcessor {
 
 	//private LinkedBlockingQueue<BirdSighting> sightings;
 	private volatile boolean terminateRequested;

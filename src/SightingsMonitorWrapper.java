@@ -1,9 +1,13 @@
+import input.ImportProvider;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.LinkedBlockingQueue;
+
+import domainobjects.BirdSightingImpl;
 
 public class SightingsMonitorWrapper {
 	
@@ -21,7 +25,7 @@ public class SightingsMonitorWrapper {
 		sightingAlertProcessors = SightingAlertProcessorFactory.getInstance().getAlertProcessors();
 		
 		// First start the data importers
-		DataImportProvider.getInstance().startImporters();
+		ImportProvider.getInstance().startImporters();
 		
 		// Load the shared queue with some sample sightings
 		loadSightings();

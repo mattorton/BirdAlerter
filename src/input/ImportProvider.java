@@ -1,29 +1,33 @@
+package input;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DataImportProvider {
+import domainobjects.IBirdSighting;
 
-	private SightingsImporter[] sightingsImporters = new SightingsImporter[]{new TcpSightingsImporterImpl(4444, 20)};
+public class ImportProvider {
+
+	private ISightingsImporter[] sightingsImporters = new ISightingsImporter[]{new TcpSightingsImporterImpl(4444, 20)};
 	private List<Thread> runThreads = new ArrayList<Thread>();
-	private Map<String, List<BirdSighting>> threadQueues = new HashMap<String, List<BirdSighting>>();
-	static DataImportProvider instance = new DataImportProvider();
+	private Map<String, List<IBirdSighting>> threadQueues = new HashMap<String, List<IBirdSighting>>();
+	static ImportProvider instance = new ImportProvider();
 	
-	private DataImportProvider(){
+	private ImportProvider(){
 		// For each SightingsImporter instance create a List<BirdSighting> instance
 		// keyed on the concrete class name
-		for (SightingsImporter importer : sightingsImporters) {
-			threadQueues.put(importer.getClass().getName(), new ArrayList<BirdSighting>());
+		for (ISightingsImporter importer : sightingsImporters) {
+			threadQueues.put(importer.getClass().getName(), new ArrayList<IBirdSighting>());
 			importer.assignList(threadQueues.get(importer.getClass().getName()));
 		}
 	}
 	
 	// Create a singleton instance
-	public static DataImportProvider getInstance(){
+	public static ImportProvider getInstance(){
 		
 		if(instance == null){
-			instance = new DataImportProvider();
+			instance = new ImportProvider();
 		}
 			
 		return instance;
@@ -31,7 +35,7 @@ public class DataImportProvider {
 	
 	// Start each importer running in a new thread
 	public void startImporters(){
-		for (SightingsImporter importer : sightingsImporters) {
+		for (ISightingsImporter importer : sightingsImporters) {
 			Thread runThread = new Thread(importer);
 			runThreads.add(runThread);
 			// Start the thread

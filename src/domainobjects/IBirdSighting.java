@@ -1,7 +1,11 @@
+package domainobjects;
+
 import java.util.Date;
 import java.util.UUID;
 
-public interface BirdSighting{	
+import processing.ISightingVisitor;
+
+public interface IBirdSighting{	
 	UUID getUUID();
 	void setUUID(UUID uuid);
 	
@@ -10,4 +14,6 @@ public interface BirdSighting{
 	
 	String getName();
 	void setName(String name);
+	
+	void accept(ISightingVisitor visitor);
 }
