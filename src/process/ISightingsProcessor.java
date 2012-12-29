@@ -1,4 +1,4 @@
-package processing;
+package process;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import domainobjects.IBirdSighting;

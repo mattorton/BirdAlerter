@@ -1,3 +1,4 @@
+package domainobjects;
 
 public class BirdSightingAlert {
 

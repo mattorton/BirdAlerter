@@ -3,7 +3,7 @@ package domainobjects;
 import java.util.Date;
 import java.util.UUID;
 
-import processing.ISightingVisitor;
+import process.ISightingVisitor;
 
 public interface IBirdSighting{	
 	UUID getUUID();

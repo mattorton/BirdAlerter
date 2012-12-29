@@ -12,6 +12,7 @@ public class TcpSightingsImporterImpl implements ISightingsImporter{
 	private ServerSocket listener;
 	private Socket server;
 	private int maxConnections;
+	@SuppressWarnings("unused")
 	private List<IBirdSighting> birdSightings;
 	
 	public TcpSightingsImporterImpl(int port, int maxConnections) {

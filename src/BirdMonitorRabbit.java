@@ -5,6 +5,8 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
 
+import domainobjects.IBirdSighting;
+
 public class BirdMonitorRabbit {
 	
 	private ConnectionFactory factory;
@@ -82,7 +84,7 @@ public class BirdMonitorRabbit {
 		}
 	}
 	
-	public void sendToQueue(BirdSighting sighting){
+	public void sendToQueue(IBirdSighting sighting){
 		System.out.println(String.format("Sending %1$s", sighting.getName()));
 		try {
 			channel.basicPublish("", queueNameString, null, Serialiser.Serialise(sighting));
