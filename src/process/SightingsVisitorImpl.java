@@ -10,6 +10,6 @@ public class SightingsVisitorImpl implements ISightingVisitor{
 
 	@Override
 	public void Visit(BirdSightingImpl sighting) {
-		// TODO
+		System.out.println(String.format("Visited sighting for %s. Thread: ", sighting.getName(), Thread.currentThread().getName()));
 	}
 }
