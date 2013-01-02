@@ -9,7 +9,7 @@ import com.google.inject.Injector;
 public class Collections {
 	
 	public static LinkedBlockingQueue<IBirdSighting> sightings;
-	public static LinkedBlockingQueue<BirdSightingAlert> sightingAlerts;
+	public static LinkedBlockingQueue<BirdAlertImpl> sightingAlerts;
 	private static Injector injector = Guice.createInjector();
 	
 	public static synchronized Injector getInjector(){

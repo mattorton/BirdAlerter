@@ -34,7 +34,7 @@ public class ImportProvider {
 	}
 	
 	// Start each importer running in a new thread
-	public void startImporters(){
+	public void start(){
 		for (ISightingsImporter importer : sightingsImporters) {
 			Thread runThread = new Thread(importer);
 			runThreads.add(runThread);
@@ -43,15 +43,13 @@ public class ImportProvider {
 		}
 	}
 	
-	// Stop each of the spawned threads
-	public void stopImporters(){
-		for (Thread thread: runThreads) {
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public void stop(){
+		
+		for (Thread thread : runThreads) {
+			if(thread != null)
+			{
+				thread.interrupt();
 			}
 		}
-	}
+	}	
 }

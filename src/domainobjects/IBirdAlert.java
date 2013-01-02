@@ -2,13 +2,12 @@ package domainobjects;
 
 import java.util.Date;
 
-public interface IBirdAlert{	
+public interface IBirdAlert{
+	
+	String getSightingsProcessor();
+	
 	IBirdSighting getSighting();
-	void setSighting(IBirdSighting sighting);
 	
 	Date getDate();
 	void setDate(Date date);
-	
-	String getName();
-	void setName(String name);
 }

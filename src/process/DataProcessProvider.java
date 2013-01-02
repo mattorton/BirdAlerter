@@ -2,8 +2,6 @@ package process;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.inject.Inject;
-
 import common.Collections;
 
 public class DataProcessProvider {
@@ -54,5 +52,17 @@ public class DataProcessProvider {
 				thread.interrupt();
 			}
 		}
-	}	
+	}
+	
+	public Integer runningThreads(){
+		
+		Integer runningThreadCount = 0;
+		for (Thread thread : runThreads) {
+			if(thread.isAlive()){
+				runningThreadCount++;
+			}
+		}
+		return runningThreadCount;
+	}
+	
 }
