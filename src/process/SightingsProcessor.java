@@ -11,6 +11,21 @@ public class SightingsProcessor implements ISightingsProcessor{
 	private LinkedBlockingQueue<IBirdSighting> queue;
 	private List<ISightingVisitor> sightingVisitors = new ArrayList<ISightingVisitor>();
 	
+	public SightingsProcessor(){
+	}
+	
+	/**
+	 * Iterates the ISightingVisitor List, calling accept on the IBirdSighting
+	 * and passing the configured visitors on each iteration
+	 * @param sighting: The IBirdSighting concrete instance
+	 */
+	private void processSighting(IBirdSighting sighting){
+		// Accept each configured sighting visitor
+		for (ISightingVisitor visitor : sightingVisitors){
+			sighting.accept(visitor);
+		}
+	}
+
 	@Override
 	public void run() {
 		// Assign the ISightingVisitor(s) to use
@@ -39,17 +54,4 @@ public class SightingsProcessor implements ISightingsProcessor{
 	public void assignQueue(LinkedBlockingQueue<IBirdSighting> queue){
 		this.queue = queue;
 	}
-	
-	/**
-	 * Iterates the ISightingVisitor List, calling accept on the IBirdSighting
-	 * and passing the configured visitors on each iteration
-	 * @param sighting: The IBirdSighting concrete instance
-	 */
-	private void processSighting(IBirdSighting sighting){
-		// Accept each configured sighting visitor
-		for (ISightingVisitor visitor : sightingVisitors){
-			sighting.accept(visitor);
-		}
-	}
-
 }

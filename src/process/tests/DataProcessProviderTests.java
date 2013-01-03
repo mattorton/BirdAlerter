@@ -5,26 +5,44 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+
+import junit.framework.Assert;
+
 import org.junit.Test;
 import process.DataProcessProvider;
 import common.Collections;
 import domainobjects.BirdSightingImpl;
 
 public class DataProcessProviderTests {
+	
+	Integer stoppedThreads = 0;
+	Integer threadCount = 5;
 
 	@Test
-	public void test() {
-		Integer stoppedThreads = 0;
-		Integer threadCount = 4;
-		
+	public void testStartProcessing() {
+
 		DataProcessProvider.getInstance().start(threadCount);
-		//Assert.assertEquals(threadCount, DataProcessProvider.getInstance().runningThreads());
+		Assert.assertEquals(threadCount, DataProcessProvider.getInstance().runningThreads());
 		
 		loadSightings();
 		
-		DataProcessProvider.getInstance().stop();
+		//DataProcessProvider.getInstance().stop();
 		//Assert.assertEquals(stoppedThreads, DataProcessProvider.getInstance().runningThreads());
 	}
+	
+	@Test
+	public void testStopProcessing() {
+		
+		DataProcessProvider.getInstance().start(threadCount);
+		Assert.assertEquals(threadCount, DataProcessProvider.getInstance().runningThreads());
+		DataProcessProvider.getInstance().stop();
+		
+		while(DataProcessProvider.getInstance().running){
+			
+		}
+		System.out.print(DataProcessProvider.getInstance().runningThreads());
+		//Assert.assertEquals(stoppedThreads, );
+	}	
 	
 	private static void loadSightings(){
 		final List<String> birdNames = new ArrayList<String>();

@@ -1,14 +1,17 @@
 package process;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import common.Collections;
 
 public class DataProcessProvider {
 
-	private List<Thread> runThreads = new ArrayList<Thread>();
+	private ExecutorService pool;
 	static DataProcessProvider instance = new DataProcessProvider();
-	
+	public Boolean running;
+
 	private DataProcessProvider(){
 	}
 	
@@ -27,42 +30,53 @@ public class DataProcessProvider {
 	 * @param threadCount: The number of processing threads to run
 	 */
 	public void start(int threadCount){
+		pool = Executors.newFixedThreadPool(threadCount);
 		for (int i = 0; i < threadCount; i++) {
-			// Will swap out with guice injection
-			startProcessor(new SightingsProcessor());
+			
+			// TODO: Implement guice DI here
+			ISightingsProcessor processor = new SightingsProcessor();
+			processor.assignQueue(Collections.sightings);
+			pool.execute(processor);
 		}
-	}
-	
-	//@Inject
-	private void startProcessor(ISightingsProcessor processor){
-		processor.assignQueue(Collections.sightings);
-		runThreads.add(new Thread(processor));
-		runThreads.get(runThreads.size() -1).start();
+		running = true;
 	}
 	
 	/**
-	 * Starts N* threads running the injected processor instances
-	 * @param threadCount: The number of processing threads to run
+	 * The following stop() method shuts down an ExecutorService in two phases,
+	 * first by calling shutdown to reject incoming tasks, and then calling
+	 * shutdownNow, if necessary, to cancel any lingering tasks
 	 */
 	public void stop(){
-		
-		for (Thread thread : runThreads) {
-			if(thread != null)
+		// Disable new tasks from being submitted
+		pool.shutdown();
+		try
+		{
+			// Wait for existing tasks to terminate
+			if(!pool.awaitTermination(60, TimeUnit.SECONDS))
 			{
-				thread.interrupt();
+				// Threads are taking too long to join - cancel currently executing tasks
+				pool.shutdownNow();
+		        // Wait a while for tasks to respond to being cancelled
+		        if (!pool.awaitTermination(60, TimeUnit.SECONDS))
+		        {
+		        	// TODO: Swap out for log4j logging
+		           System.err.println("Pool did not terminate");		        	
+		        }
 			}
+		}
+		catch (InterruptedException ie)
+		{
+		     // (Re-)Cancel if current thread also interrupted
+		     pool.shutdownNow();
+		     // Preserve interrupt status
+		     Thread.currentThread().interrupt();
 		}
 	}
 	
 	public Integer runningThreads(){
-		
-		Integer runningThreadCount = 0;
-		for (Thread thread : runThreads) {
-			if(thread.isAlive()){
-				runningThreadCount++;
-			}
-		}
-		return runningThreadCount;
+		// Explicitly cast to ThreadPoolExecutor to access
+		// getActiveCount method
+		return ((ThreadPoolExecutor)pool).getActiveCount();
 	}
 	
 }
