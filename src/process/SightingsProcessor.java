@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import javax.xml.ws.ServiceMode;
+
+import org.springframework.stereotype.Service;
+
 import domainobjects.IBirdSighting;
 
+@Service
 public class SightingsProcessor implements ISightingsProcessor{
 
 	private LinkedBlockingQueue<IBirdSighting> queue;

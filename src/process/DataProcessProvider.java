@@ -4,8 +4,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.stereotype.Service;
+
 import common.Collections;
 
+@Service
 public class DataProcessProvider {
 
 	private ExecutorService pool;
@@ -33,8 +36,10 @@ public class DataProcessProvider {
 		pool = Executors.newFixedThreadPool(threadCount);
 		for (int i = 0; i < threadCount; i++) {
 			
-			// TODO: Implement guice DI here
-			ISightingsProcessor processor = new SightingsProcessor();
+			// Configured to use Spring DI
+			// New factory created for each to create new object
+			// for each reference
+			ISightingsProcessor processor = new ProcessorFactory().getSightingsProcessor();
 			processor.assignQueue(Collections.sightings);
 			pool.execute(processor);
 		}
