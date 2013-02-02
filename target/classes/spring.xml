@@ -8,5 +8,5 @@
 	
 	<context:annotation-config />
  
-	<bean id="sightingsProcessor" class="process.SightingsProcessor" />
+	<bean id="processor" class="process.SightingsProcessor" />
 </beans>

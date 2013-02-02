@@ -62,5 +62,11 @@
 	<classpathentry kind="lib" path="/Users/Matt/Documents/Software/Java/Spring/spring-framework-3.2.0.RC2 2/libs/spring-webmvc-portlet-3.2.0.RC2-javadoc.jar"/>
 	<classpathentry kind="lib" path="/Users/Matt/Documents/Software/Java/Spring/spring-framework-3.2.0.RC2 2/libs/spring-webmvc-portlet-3.2.0.RC2-sources.jar"/>
 	<classpathentry kind="lib" path="/Users/Matt/Documents/Software/Java/Spring/spring-framework-3.2.0.RC2 2/libs/spring-webmvc-portlet-3.2.0.RC2.jar"/>
+	<classpathentry kind="lib" path="/Users/Matt/Documents/EclipseWorkspace/BirdAlerter/lib/commons-logging-1.1.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="/Users/Matt/Documents/EclipseWorkspace/BirdAlerter/lib/commons-logging-1.1.1-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/Matt/Documents/EclipseWorkspace/BirdAlerter/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Matt/Documents/EclipseWorkspace/BirdAlerter/lib/commons-logging-adapters-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Matt/Documents/EclipseWorkspace/BirdAlerter/lib/commons-logging-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Matt/Documents/EclipseWorkspace/BirdAlerter/lib/commons-logging-tests.jar"/>
 	<classpathentry kind="output" path="src"/>
 </classpath>

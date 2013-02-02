@@ -1,10 +1,13 @@
-import input.ImportProvider;
-
 import java.util.concurrent.LinkedBlockingQueue;
-import common.Collections;
-import process.DataProcessProvider;
-import domainobjects.BirdAlertImpl;
-import domainobjects.IBirdSighting;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import birdalerter.common.AppConfig;
+import birdalerter.common.Collections;
+import birdalerter.domainobjects.BirdAlertImpl;
+import birdalerter.domainobjects.IBirdSighting;
+import birdalerter.input.ImportProvider;
+import birdalerter.process.DataProcessProvider;
 
 public class SightingsMonitor {
 
@@ -14,6 +17,13 @@ public class SightingsMonitor {
 	 * @throws InterruptedException 
 	 */
 	public static void main(String[] args) throws InterruptedException {
+		
+		@SuppressWarnings("resource")
+		AnnotationConfigApplicationContext ctx = 
+				   new AnnotationConfigApplicationContext();
+		
+		ctx.register(AppConfig.class);
+		ctx.refresh();
 		
 		Collections.sightings = new LinkedBlockingQueue<IBirdSighting>();
 		Collections.sightingAlerts = new LinkedBlockingQueue<BirdAlertImpl>();
